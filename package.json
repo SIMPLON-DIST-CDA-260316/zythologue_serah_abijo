@@ -1,0 +1,17 @@
+{
+  "name": "zythologue",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Raccourcis pnpm pour gérer l'environnement Docker PostgreSQL du brief Zythologue.",
+  "scripts": {
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:down:volumes": "docker compose down -v",
+    "docker:start": "docker compose start",
+    "docker:stop": "docker compose stop",
+    "docker:restart": "docker compose restart",
+    "docker:logs": "docker compose logs -f",
+    "docker:ps": "docker compose ps",
+    "docker:config": "docker compose config"
+  }
+}
