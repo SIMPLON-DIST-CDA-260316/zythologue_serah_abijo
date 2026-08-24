@@ -1,0 +1,5 @@
+node_modules
+.git
+.env
+roadmap.md
+npm-debug.log

@@ -7,14 +7,22 @@ Le projet couvre la modélisation MERISE (MCD, MLD, MPD) puis l'implémentation
 sous PostgreSQL avec les scripts de création, d'alimentation et les requêtes
 demandées.
 
+## API (backend)
+
+La documentation de l'API REST (services CRUD sur les bières) est dans
+[docs/api.md](docs/api.md).
+
 ## Stack
 
 - PostgreSQL 18 (via Docker)
+- Node.js / Express pour l'API
+- `pg` pour connecter l'API à PostgreSQL
 - DBeaver pour se connecter et exécuter les scripts
 
-## Lancer la base
+## Lancer avec Docker
 
-La base tourne dans un conteneur Docker. Depuis la racine du projet :
+Le `docker-compose.yml` lance la base PostgreSQL et l'API.
+Depuis la racine du projet :
 
 ```bash
 docker compose up -d
@@ -24,6 +32,14 @@ Pour vérifier qu'elle tourne :
 
 ```bash
 docker compose ps
+```
+
+L'API écoute sur `http://localhost:3000` par défaut.
+Si le port 3000 est déjà pris, on peut changer `API_PORT` dans le `.env`
+ou lancer comme ça :
+
+```bash
+API_PORT=3001 docker compose up -d --build
 ```
 
 Pour l'arrêter sans perdre les données :
@@ -38,6 +54,18 @@ Par défaut : base, utilisateur et mot de passe = `zythologue`, port `5432`.
 Si le port 5432 est déjà occupé sur ta machine (par exemple par une autre
 installation de PostgreSQL), change `POSTGRES_PORT` dans le `.env`, par exemple
 en `5433`, puis relance `docker compose up -d`.
+
+## Lancer l'API sans Docker
+
+On peut aussi lancer seulement PostgreSQL avec Docker, puis l'API directement
+sur la machine :
+
+```bash
+npm install
+npm run dev
+```
+
+Dans ce cas, la connexion PostgreSQL utilise les variables du `.env`.
 
 ## Se connecter avec DBeaver
 
@@ -68,8 +96,10 @@ tables avant de les recréer, et le seed vide les tables avant de réinsérer.
 ```
 docs/    modélisation (analyse, règles de gestion, dictionnaire, MCD, MLD, MPD)
 sql/     scripts SQL
+src/     API Express
 img/     image du README
 docker-compose.yml
+Dockerfile
 ```
 
 ## Hypothèses de modélisation
